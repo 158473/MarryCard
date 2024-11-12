@@ -29,15 +29,15 @@
             position: relative; /* 使 img 可以絕對定位 */
         }
 
-        /* 第一張和第二張圖片的樣式 */
-        #image1 img, #image2 img {
+        /* 第一張圖片的樣式 */
+        #image1 img {
             width: 100%; /* 確保圖片寬度為100% */
             height: 100%; /* 確保圖片高度為100% */
             object-fit: cover; /* 確保圖片覆蓋整個容器 */
         }
 
-        /* 第三張圖片的樣式 */
-        #image3 {
+        /* 第二張和第三張圖片的樣式 */
+        #image2, #image3 {
             display: flex; /* 使用 flexbox 來置中 */
             justify-content: center; /* 水平置中 */
             align-items: center; /* 垂直置中 */
@@ -46,7 +46,7 @@
             background-color: #f0f0f0; /* 可選，設定背景顏色以便於觀察 */
         }
 
-        #image3 img {
+        #image2 img, #image3 img {
             width: auto; /* 寬度自動 */
             height: auto; /* 高度自動 */
             max-width: 100%; /* 最大寬度為100% */
