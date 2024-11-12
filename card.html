@@ -14,6 +14,7 @@
         body, html {
             height: 100%;
             overflow: hidden;
+            font-family: Arial, sans-serif;
         }
 
         .container {
@@ -27,6 +28,15 @@
             background-size: cover;
             background-position: center;
         }
+
+        .indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 20px;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -35,6 +45,7 @@
         <div class="image" id="image1" style="background-image: url('1.jpg');"></div>
         <div class="image" id="image2" style="background-image: url('2.jpg');"></div>
         <div class="image" id="image3" style="background-image: url('3.jpg');"></div>
+        <div class="indicator" id="indicator">1 / 3</div>
     </div>
     <script>
         $(document).ready(function() {
@@ -43,9 +54,25 @@
             const threshold = 200; // 設定滑動的閾值
             let startY = 0;
             let endY = 0;
+            let isScrolling = false; // 防抖變數
+
+            // 更新指示器
+            function updateIndicator() {
+                $('#indicator').text((currentIndex + 1) + ' / ' + images.length);
+            }
+
+            // 滾動到指定的圖片
+            function scrollToImage(index) {
+                const targetPosition = -index * 100; // 計算目標位置
+                $('.container').css('transform', `translateY(${targetPosition}vh)`);
+                updateIndicator(); // 更新指示器
+            }
 
             // 設定滑動事件
             $(window).on('wheel', function(event) {
+                if (isScrolling) return; // 防抖
+                isScrolling = true;
+
                 if (event.originalEvent.deltaY > 0) {
                     // 向下滾動
                     if (currentIndex < images.length - 1) {
@@ -58,13 +85,9 @@
                     }
                 }
                 scrollToImage(currentIndex);
-            });
 
-            // 滾動到指定的圖片
-            function scrollToImage(index) {
-                const targetPosition = -index * 100; // 計算目標位置
-                $('.container').css('transform', `translateY(${targetPosition}vh)`);
-            }
+                setTimeout(() => isScrolling = false, 500); // 500ms後重置防抖
+            });
 
             // 支援觸控滑動事件
             $(window).on('touchstart', function(event) {
