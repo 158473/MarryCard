@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喜帖頁面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 300%; /* 三張圖片的總高度 */
+            position: relative;
+            transition: transform 0.5s ease; /* 動畫效果 */
+        }
+
+        .image {
+            height: 100vh; /* 每張圖片的高度為視窗高度 */
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="image" id="image1" style="background-image: url('1.jpg');"></div>
+        <div class="image" id="image2" style="background-image: url('2.jpg');"></div>
+        <div class="image" id="image3" style="background-image: url('3.jpg');"></div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            let currentIndex = 0;
+            const images = $('.image');
+
+            // 設定滑動事件
+            $(window).on('wheel', function(event) {
+                if (event.originalEvent.deltaY > 0) {
+                    // 向下滾動
+                    currentIndex = Math.min(currentIndex + 1, images.length - 1);
+                } else {
+                    // 向上滾動
+                    currentIndex = Math.max(currentIndex - 1, 0);
+                }
+                scrollToImage(currentIndex);
+            });
+
+            // 滾動到指定的圖片
+            function scrollToImage(index) {
+                const targetPosition = -index * 100; // 計算目標位置
+                $('.container').css('transform', `translateY(${targetPosition}vh)`);
+            }
+
+            // 支援觸控滑動事件
+            let touchStartY = 0;
+
+            $(window).on('touchstart', function(event) {
+                touchStartY = event.originalEvent.touches[0].clientY; // 記錄觸控開始的位置
+            });
+
+            $(window).on('touchmove', function(event) {
+                const touchEndY = event.originalEvent.touches[0].clientY;
+                if (touchStartY - touchEndY > 50) {
+                    // 向下滑動
+                    currentIndex = Math.min(currentIndex + 1, images.length - 1);
+                    scrollToImage(currentIndex);
+                } else if (touchEndY - touchStartY > 50) {
+                    // 向上滑動
+                    currentIndex = Math.max(currentIndex - 1, 0);
+                    scrollToImage(currentIndex);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
