@@ -34,15 +34,6 @@
             height: 100%; /* 確保圖片高度為100% */
             object-fit: cover; /* 確保圖片覆蓋整個容器 */
         }
-
-        .indicator {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 20px;
-        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -51,15 +42,12 @@
         <div class="image" id="image1">
             <img src="1.jpg" alt="Image 1">
         </div>
-		<div class="indicator" id="indicator">1 / 3</div>
         <div class="image" id="image2">
             <img src="2.jpg" alt="Image 2">
         </div>
-		<div class="indicator" id="indicator">2 / 3</div>
         <div class="image" id="image3">
             <img src="3.jpg" alt="Image 3">
         </div>
-        <div class="indicator" id="indicator">3 / 3</div>
     </div>
     <script>
         $(document).ready(function() {
@@ -70,13 +58,10 @@
             let endY = 0;
             let isScrolling = false; // 防抖變數
 
-
-
             // 滾動到指定的圖片
             function scrollToImage(index) {
                 const targetPosition = -index * 100; // 計算目標位置
                 $('.container').css('transform', `translateY(${targetPosition}vh)`);
-                updateIndicator(); // 更新指示器
             }
 
             // 設定滑動事件
