@@ -36,6 +36,26 @@
             object-fit: cover; /* 確保圖片覆蓋整個容器 */
         }
 
+        /* 第三張圖片的樣式，使用背景圖片 */
+        #image3 {
+            background-image: url('0.jpg'); /* 設定背景為第一張圖片 */
+            background-size: cover; /* 背景圖片覆蓋整個容器 */
+            background-position: center; /* 背景圖片置中 */
+            display: flex; /* 使用 flexbox 來置中 */
+            justify-content: center; /* 水平置中 */
+            align-items: center; /* 垂直置中 */
+            height: 100vh; /* 高度為視窗高度 */
+        }
+
+        #image2, #image3 {
+            display: flex; /* 使用 flexbox 來置中 */
+            justify-content: center; /* 水平置中 */
+            align-items: center; /* 垂直置中 */
+            height: 100vh; /* 高度為視窗高度 */
+            width: 100%; /* 寬度為100% */
+            background-color: #f0f0f0; /* 可選，設定背景顏色以便於觀察 */
+        }
+
         /* 標題樣式 */
         .welcome-text {
             position: absolute;
@@ -47,16 +67,6 @@
             color: #D9CBA0; /* 奶茶色 */
             text-align: center; /* 文字置中 */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 文字陰影（可選） */
-        }
-
-        /* 第二張和第三張圖片的樣式 */
-        #image2, #image3 {
-            display: flex; /* 使用 flexbox 來置中 */
-            justify-content: center; /* 水平置中 */
-            align-items: center; /* 垂直置中 */
-            height: 100vh; /* 高度為視窗高度 */
-            width: 100%; /* 寬度為100% */
-            background-color: #f0f0f0; /* 可選，設定背景顏色以便於觀察 */
         }
 
         #image2 img, #image3 img {
@@ -76,7 +86,7 @@
             <div class="welcome-text" id="welcomeText"></div> <!-- 歡迎文字 -->
         </div>
         <div class="image" id="image1">
-            <img src="1-1.jpg" alt="Image 1">
+            <img src="1.jpg" alt="Image 1">
         </div>
         <div class="image" id="image2">
             <img src="2.jpg" alt="Image 2">
