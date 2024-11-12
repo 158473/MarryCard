@@ -36,6 +36,19 @@
             object-fit: cover; /* 確保圖片覆蓋整個容器 */
         }
 
+        /* 標題樣式 */
+        .welcome-text {
+            position: absolute;
+            top: 20%; /* 距離上方的距離 */
+            left: 50%;
+            transform: translateX(-50%); /* 水平置中 */
+            font-size: 7em; /* 增加字體大小至兩倍 */
+            font-weight: bold; /* 粗體 */
+            color: #D9CBA0; /* 奶茶色 */
+            text-align: center; /* 文字置中 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 文字陰影（可選） */
+        }
+
         /* 第二張和第三張圖片的樣式 */
         #image2, #image3 {
             display: flex; /* 使用 flexbox 來置中 */
@@ -60,6 +73,7 @@
     <div class="container">
         <div class="image" id="image0">
             <img src="0.jpg" alt="Image 0">
+            <div class="welcome-text" id="welcomeText"></div> <!-- 歡迎文字 -->
         </div>
         <div class="image" id="image1">
             <img src="1.jpg" alt="Image 1">
@@ -132,6 +146,17 @@
                     startY = endY; // 重置起始位置
                 }
             });
+
+            // 獲取 URL 中的 invite 參數
+            const urlParams = new URLSearchParams(window.location.search);
+            const inviteCode = urlParams.get('invite'); // 取得 invite 變數的值
+
+            // 在第一張圖片上顯示邀請碼
+            if (inviteCode) {
+                $('#welcomeText').text(`${inviteCode} 全家福`);
+            } else {
+                $('#welcomeText').text('誠摯邀請您'); // 如果沒有 invite 參數，顯示預設文字
+            }
         });
     </script>
 </body>
