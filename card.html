@@ -29,7 +29,7 @@
             position: relative; /* 使 img 可以絕對定位 */
         }
 
-        /* 第一、二、三張圖片的樣式 */
+        /* 第一、二張圖片的樣式 */
         #image0 img, #image1 img, #image2 img {
             width: 100%; /* 確保圖片寬度為100% */
             height: 100%; /* 確保圖片高度為100% */
@@ -46,7 +46,14 @@
             align-items: center; /* 垂直置中 */
             height: 100vh; /* 高度為視窗高度 */
             width: 100%; /* 寬度為100% */
-            background-color: #f0f0f0; /* 可選，設定背景顏色以便於觀察 */
+        }
+
+        #image3 img {
+            width: auto; /* 寬度自動 */
+            height: auto; /* 高度自動 */
+            max-width: 100%; /* 最大寬度為100% */
+            max-height: 100%; /* 最大高度為100% */
+            object-fit: contain; /* 確保圖片保持比例並完整顯示 */
         }
 
         /* 標題樣式 */
@@ -100,7 +107,7 @@
             <div class="scroll-hint">請往下滑</div> <!-- 滑動提示 -->
         </div>
         <div class="image" id="image3">
-            <img src="3.jpg" alt="Image 3">
+            <img src="3.jpg" alt="Image 3"> <!-- 確保這裡顯示 3.jpg -->
         </div>
     </div>
     <script>
