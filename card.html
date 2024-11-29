@@ -79,6 +79,11 @@
             animation: pulse 1.5s infinite; /* 使用動畫 */
         }
 
+.small-text {
+    font-size: 0.8em; /* 調整字體大小，0.8em 可以根據需要進行修改 */
+    color: #D9CBA0; /* 如果需要，可以保持顏色一致 */
+}
+        
         /* 動畫效果 */
         @keyframes pulse {
             0%, 100% {
@@ -178,7 +183,7 @@
 
             // 在第一張圖片上顯示邀請碼
             if (inviteCode) {
-                $('#welcomeText').html(`${inviteCode}</br>誠摯邀請您`);
+                $('#welcomeText').html(`${inviteCode}</br><span class="small-text">誠摯邀請您</span>`);
             } else {
                 $('#welcomeText').text('誠摯邀請您'); // 如果沒有 invite 參數，顯示預設文字
             }
