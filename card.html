@@ -185,7 +185,8 @@
             if (inviteCode) {
                 $('#welcomeText').html(`${inviteCode}</br><span class="small-text">誠摯邀請您</span>`);
             } else {
-                $('#welcomeText').text('誠摯邀請您'); // 如果沒有 invite 參數，顯示預設文字
+                //$('#welcomeText').text('誠摯邀請您'); // 如果沒有 invite 參數，顯示預設文字
+                $('#welcomeText').html(`<span class="small-text">誠摯邀請您</span>`);
             }
         });
     </script>
