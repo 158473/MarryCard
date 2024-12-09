@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>俊佑&怡靜 喜帖邀請函</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            height: 400%; /* 四張圖片的總高度 */
+            position: relative;
+            transition: transform 0.5s ease; /* 動畫效果 */
+        }
+
+        .image {
+            height: 100vh; /* 每張圖片的高度為視窗高度 */
+            width: 100%; /* 寬度為100% */
+            position: relative; /* 使 img 可以絕對定位 */
+        }
+
+        /* 第一、二張圖片的樣式 */
+        #image0 img, #image1 img, #image2 img {
+            width: 100%; /* 確保圖片寬度為100% */
+            height: 100%; /* 確保圖片高度為100% */
+            object-fit: cover; /* 確保圖片覆蓋整個容器 */
+        }
+
+        /* 第三張圖片的樣式，使用背景圖片 */
+        #image3 {
+            background-image: url('5.jpg'); /* 設定背景為第五張圖片 */
+            background-size: cover; /* 背景圖片覆蓋整個容器 */
+            background-position: center; /* 背景圖片置中 */
+            display: flex; /* 使用 flexbox 來置中 */
+            justify-content: center; /* 水平置中 */
+            align-items: center; /* 垂直置中 */
+            height: 100vh; /* 高度為視窗高度 */
+            width: 100%; /* 寬度為100% */
+        }
+
+        #image3 img {
+            width: auto; /* 寬度自動 */
+            height: auto; /* 高度自動 */
+            max-width: 100%; /* 最大寬度為100% */
+            max-height: 100%; /* 最大高度為100% */
+            object-fit: contain; /* 確保圖片保持比例並完整顯示 */
+        }
+
+        /* 標題樣式 */
+        .welcome-text {
+            position: absolute;
+            top: 20%; /* 距離上方的距離 */
+            left: 50%;
+            transform: translateX(-50%); /* 水平置中 */
+            font-size: 3.5em; /* 恢復字體大小 */
+            font-weight: bold; /* 粗體 */
+            color: #D9CBA0; /* 奶茶色 */
+            text-align: center; /* 文字置中 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 文字陰影（可選） */
+        }
+
+        /* 請往下滑提示樣式 */
+        .scroll-hint {
+            position: absolute;
+            bottom: 20px; /* 距離底部的距離 */
+            right: 20px; /* 距離右側的距離 */
+            font-size: 1.5em; /* 字體大小 */
+            color: #D9CBA0; /* 奶茶色 */
+            animation: pulse 1.5s infinite; /* 使用動畫 */
+        }
+
+.small-text {
+    font-size: 0.6em; /* 調整字體大小，0.8em 可以根據需要進行修改 */
+    color: #D9CBA0; /* 如果需要，可以保持顏色一致 */
+}
+        
+        /* 動畫效果 */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1); /* 初始和結束大小 */
+            }
+            50% {
+                transform: scale(1.2); /* 中間大小放大 */
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="image" id="image0">
+            <img src="0.jpg" alt="Image 0">
+            <div class="welcome-text" id="welcomeText"></div> <!-- 歡迎文字 -->
+            <div class="scroll-hint">請往下滑</div> <!-- 滑動提示 -->
+        </div>
+        <div class="image" id="image1">
+            <img src="1-2.jpg" alt="Image 1">
+            <div class="scroll-hint">請往下滑</div> <!-- 滑動提示 -->
+        </div>
+        <div class="image" id="image2">
+            <img src="2.jpg" alt="Image 2">
+            <div class="scroll-hint">請往下滑</div> <!-- 滑動提示 -->
+        </div>
+        <div class="image" id="image3">
+            <img src="3.jpg" alt="Image 3"> <!-- 確保這裡顯示 3.jpg -->
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            let currentIndex = 0;
+            const images = $('.image');
+            const threshold = 150; // 設定滑動的閾值
+            let startY = 0;
+            let endY = 0;
+            let isScrolling = false; // 防抖變數
+
+            // 滾動到指定的圖片
+            function scrollToImage(index) {
+                const targetPosition = -index * 100; // 計算目標位置
+                $('.container').css('transform', `translateY(${targetPosition}vh)`);
+            }
+
+            // 設定滑動事件
+            $(window).on('wheel', function(event) {
+                if (isScrolling) return; // 防抖
+                isScrolling = true;
+
+                if (event.originalEvent.deltaY > 0) {
+                    // 向下滾動
+                    if (currentIndex < images.length - 1) {
+                        currentIndex++;
+                    }
+                } else {
+                    // 向上滾動
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                    }
+                }
+                scrollToImage(currentIndex);
+
+                setTimeout(() => isScrolling = false, 500); // 500ms後重置防抖
+            });
+
+            // 支援觸控滑動事件
+            $(window).on('touchstart', function(event) {
+                startY = event.originalEvent.touches[0].clientY; // 記錄觸控開始的位置
+            });
+
+            $(window).on('touchmove', function(event) {
+                endY = event.originalEvent.touches[0].clientY; // 記錄觸控結束的位置
+                const distance = startY - endY;
+
+                if (Math.abs(distance) > threshold) {
+                    if (distance > 0) {
+                        // 向下滑動
+                        if (currentIndex < images.length - 1) {
+                            currentIndex++;
+                        }
+                    } else {
+                        // 向上滑動
+                        if (currentIndex > 0) {
+                            currentIndex--;
+                        }
+                    }
+                    scrollToImage(currentIndex);
+                    startY = endY; // 重置起始位置
+                }
+            });
+
+            // 獲取 URL 中的 invite 參數
+            const urlParams = new URLSearchParams(window.location.search);
+            const inviteCode = urlParams.get('invite'); // 取得 invite 變數的值
+
+            // 在第一張圖片上顯示邀請碼
+            if (inviteCode) {
+                $('#welcomeText').html(`${inviteCode}</br><span class="small-text">誠摯邀請您</span>`);
+            } else {
+                //$('#welcomeText').text('誠摯邀請您'); // 如果沒有 invite 參數，顯示預設文字
+                $('#welcomeText').html(`<span class="small-text">誠摯邀請您</span>`);
+            }
+        });
+    </script>
+</body>
+</html>
